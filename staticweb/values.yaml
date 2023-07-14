@@ -1,6 +1,6 @@
-replicaCount: 5
+replicaCount: 2
 image:
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   repository: public.ecr.aws/u9g3j7w4/argocd
   version: alpine
 imagePullSecrets: []
@@ -15,7 +15,7 @@ service:
   # type: LoadBalancer
   port: 80
 ingress:
-  enabled: false
+  enabled: true
   annotations: {
     alb.ingress.kubernetes.io/load-balancer-name: demo, alb.ingress.kubernetes.io/scheme: internet-facing, alb.ingress.kubernetes.io/healthcheck-path: /
   }
