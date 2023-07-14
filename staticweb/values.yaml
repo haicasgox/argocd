@@ -12,11 +12,13 @@ serviceAccount:
 podSecurityContext: {}
 securityContext: {}
 service:
-  type: LoadBalancer
+  # type: LoadBalancer
   port: 80
 ingress:
   enabled: false
-  annotations: {}
+  annotations: {
+    alb.ingress.kubernetes.io/load-balancer-name: demo, alb.ingress.kubernetes.io/scheme: internet-facing, alb.ingress.kubernetes.io/healthcheck-path: /
+  }
   hosts:
     - host: chart-example.local
       paths: []
