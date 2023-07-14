@@ -1,0 +1,27 @@
+replicaCount: 5
+image:
+  pullPolicy: IfNotPresent
+  repository: public.ecr.aws/u9g3j7w4/argocd
+  version: alpine
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  create: false
+  name:
+podSecurityContext: {}
+securityContext: {}
+service:
+  type: LoadBalancer
+  port: 80
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
