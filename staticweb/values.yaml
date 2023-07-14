@@ -1,0 +1,29 @@
+replicaCount: 2
+image:
+  pullPolicy: Always
+  repository: public.ecr.aws/u9g3j7w4/argocd
+  version: alpine
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  create: false
+  name:
+podSecurityContext: {}
+securityContext: {}
+service:
+  # type: LoadBalancer
+  port: 80
+ingress:
+  enabled: true
+  annotations: {
+    alb.ingress.kubernetes.io/load-balancer-name: demo, alb.ingress.kubernetes.io/scheme: internet-facing, alb.ingress.kubernetes.io/healthcheck-path: /
+  }
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "helm-example.fullname" . }}
+  labels:
+    {{- include "helm-example.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{  }}
+  template:
+    metadata:
+      labels:
+        app: {{  }}
+    spec:
+      containers:
+      - name: {{  }}
+        image: <Image>
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: <Port>
