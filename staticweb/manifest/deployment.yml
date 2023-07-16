@@ -17,6 +17,6 @@ spec:
       containers:
       - name: nginx
         image: public.ecr.aws/u9g3j7w4/argocd:alpine
-        ImagePullPolicy: Always
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
