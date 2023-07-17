@@ -1,0 +1,45 @@
+name: build
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    name: build image
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::485201455091:role/IamRoleforGithubAction
+          aws-region: aws-southeast-1
+      
+      - name: Login to Amazon ECR Public
+        id: login-ecr-public
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registry-type: public
+
+      - name: Build, tag, and push docker image to Amazon ECR Public
+        env:
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}ssss
+          REGISTRY_ALIAS: ${{ secrets.ECR_PUBLIC_REPO_ALIAS }}
+          REPOSITORY: ${{ secrets.ECR_PUBLIC_REPO }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "Building image..."
+          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+          echo "Pushing the image to ECR..."
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+      
+      - name: Commit and push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+      
