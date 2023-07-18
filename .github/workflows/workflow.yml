@@ -38,7 +38,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
           REGISTRY_ALIAS: ${{ secrets.ECR_PUBLIC_REPO_ALIAS }}
-          REPOSITORY: ${{ secrets.ECR_PUBLIC_REPO }}
+          REPOSITORY: ${{ secrets.REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           echo "Building image..."
