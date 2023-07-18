@@ -56,9 +56,8 @@ jobs:
           REGISTRY_ALIAS: ${{ secrets.ECR_PUBLIC_REPO_ALIAS }}
           REPOSITORY: ${{ secrets.REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
-          IMAGE: $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         with:
-          cmd: yq -i '.spec.template.spec.containers[0].image = strenv(IMAGE)' staticweb/manifest/deployment.yml
+          cmd: yq -i '.spec.template.spec.containers[0].image = strenv($REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG)' staticweb/manifest/deployment.yml
       
       - name: Commit files
         run: |
