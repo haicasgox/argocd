@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "public.ecr.aws/u9g3j7w4/argocd:4e24137fe0d11e9971a4685929d314b11e5a6e68"
+          image: "public.ecr.aws/u9g3j7w4/argocd:4edbd49102cb0cdf01254ffcd163bf5af7903a8b"
           imagePullPolicy: Always
           ports:
             - containerPort: 80
