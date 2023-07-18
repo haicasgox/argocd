@@ -4,11 +4,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-env:
-  REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-  REGISTRY_ALIAS: ${{ secrets.ECR_PUBLIC_REPO_ALIAS }}
-  REPOSITORY: ${{ secrets.REPOSITORY }}
-  IMAGE_TAG: ${{ github.sha }}
+
 jobs:
   build:
     name: build image
@@ -56,6 +52,10 @@ jobs:
       - name: Update image version
         uses: mikefarah/yq@master
         env:
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY_ALIAS: ${{ secrets.ECR_PUBLIC_REPO_ALIAS }}
+          REPOSITORY: ${{ secrets.REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
           IMAGE: $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         with:
           cmd: yq -i '.spec.template.spec.containers[0].image = strenv(IMAGE)' staticweb/manifest/deployment.yml
