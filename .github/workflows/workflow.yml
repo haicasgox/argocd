@@ -54,16 +54,20 @@ jobs:
         with:
           cmd: yq -i '.spec.template.spec.containers[0].image = "$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG"' staticweb/manifest/deployment.yml
       
-      - name: Commit files
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git commit -a -m "Add changes"
+      # - name: Commit files
+      #   run: |
+      #     git config --local user.email "github-actions[bot]@users.noreply.github.com"
+      #     git config --local user.name "github-actions[bot]"
+      #     git commit -a -m "Add changes"
 
-      - name: Commit and push changes
-        uses: ad-m/github-push-action@master
+      # - name: Commit and push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: ${{ github.ref }}
+      - name: Commit & Push changes
+        uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
 
       
