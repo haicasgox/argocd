@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          image: strenv(IMAGE)
           imagePullPolicy: Always
           ports:
             - containerPort: 80
