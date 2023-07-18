@@ -51,8 +51,10 @@ jobs:
 
       - name: Update image version
         uses: mikefarah/yq@master
+        env:
+          IMAGE: $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         with:
-          cmd: yq -i '.spec.template.spec.containers[0].image = "$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG"' staticweb/manifest/deployment.yml
+          cmd: yq -i '.spec.template.spec.containers[0].image = "strenv(IMAGE)"' staticweb/manifest/deployment.yml
       
       - name: Commit files
         run: |
